@@ -1,0 +1,74 @@
+<resources>
+
+    <!-- Start Page -->
+    <string name="app_name">DuErNormal</string>
+    <string name="velg">Velg kategori</string>
+    <string name="tilfeldig">Vis tilfeldige</string>
+    <string name="neste">Neste</string>
+    <string name="statdam"> % av damer </string>
+    <string name="statmann"> % av menn i alderen 0 &#8211; 100 år</string>
+    <string name="stem">Stem</string>
+
+    <!-- Facts to display on front page -->
+    <string name="selvmord_menn">Selvmordsraten hos menn er x pst høyere hos menn enn hos kvinner. Dette fordi </string>
+    <string name="start_beskjed">Vi tenker ca 70000 tanker om dagen. For mange er 70 til 80 pst av disse tankene negative. Negative tanker får oss i dårlig humør, de øker stress</string>
+
+
+    <!-- Svaralternativer -->
+    <string name="svar1">Tenker det flere ganger i uken</string>
+    <string name="svar2">Tenker det noen ganger i måneden</string>
+    <string name="svar3">Tenker det sjeldent, men det hender</string>
+    <string name="svar4">Tenkte det før, men ikke nå lenger</string>
+    <string name="svar5">Har aldri tenkt det</string>
+
+    <!-- Categories -->
+    <string name="kropp">Kropp</string>
+    <string name="utseendet">Utseendet</string>
+    <string name="jobb">Jobb/Skole</string>
+    <string name="personlighet">Personlighet</string>
+    <string name="sosialt">Sosialt</string>
+    <string name="foreldre">Foreldre</string>
+    <string name="Generelt">Generelt</string>
+
+
+    <!-- Thoughts by category-->
+    <!-- Kropp -->
+    <string name="kropp1_tjukk"> \u0022 Jeg føler meg tjukk \u0022 </string>
+    <string name="kropp2_stygg_kropp"> \u0022 Jeg syns kroppen min er stygg \u0022 </string>
+    <string name="kropp3_for_tynn"> \u0022 Jeg føler meg for tynn \u0022 </string>
+    <string name="kropp4_små_muskler"> \u0022 Jeg har for små muskler \u0022 </string>
+    <string name="x3">x</string>
+
+
+    <!-- Utseendet -->
+    <string name="x1">x</string>
+
+
+    <!-- Jobb -->
+    <string name="jobb1_burdeikke"> \u0022 Jeg er ikke flink i jobben min \u0022 </string>
+    <string name="x2">x</string>
+
+    <!-- Personlighet -->
+    <string name="slem"> \u0022 Jeg er slem \u0022 </string>
+
+
+    <!-- Sosialt -->
+    <string name="sos1_ikke_morsom"> \u0022 Jeg er ikke morsom \u0022 </string>
+    <string name="sos2_uinteressant"> \u0022 Jeg er ikke interessant \u0022 </string>
+    <string name="sos3_dum"> \u0022 Jeg er dum \u0022 </string>
+    <string name="sos4_kjedelig"> \u0022 Jeg er kjedelig \u0022 </string>
+    <string name="x4">x</string>
+
+    <!-- Familie -->
+    <string name="for1_ikke_god_forelder"> \u0022 Jeg er ikke en god forelder \u0022 </string>
+    <string name="for2_mer_tid"> \u0022 Jeg burde hatt mer tid til barnet/barna mine \u0022 </string>
+    <string name="for3_foreldrestolte"> \u0022 Foreldrene mine er ikke stolte over meg \u0022 </string>
+
+    <!-- Generelt eller ikke enda plassert i kategori -->
+    <string name="gen1_strekker_til"> \u0022 Jeg strekker ikke til \u0022 </string>
+    <string name="gen2_fortjener_ikke_elsket"> \u0022 Jeg fortjener ikke å bli elsket \u0022 </string>
+    <string name="gen3_er_ikke_elsket"> \u0022 Jeg er ikke elsket \u0022 </string>
+    <string name="gen3_mislykket"> \u0022 Jeg er mislykket \u0022 </string>
+
+
+</resources>
