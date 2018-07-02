@@ -44,6 +44,7 @@ public class DisplayKropp extends AppCompatActivity {
 
         final int len = mKroppStatements.length;
 
+        // comment
 
 
         mSitat = mKroppStatements[mIndex].getstatementID();
