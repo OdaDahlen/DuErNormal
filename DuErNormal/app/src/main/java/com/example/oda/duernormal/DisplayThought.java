@@ -4,14 +4,14 @@ package com.example.oda.duernormal;
  * Created by oda on 06.01.18.
  */
 
-public class DisplayStatements {
+public class DisplayThought {
     private int mStatementID;
     private double mStatDamer;
     private double mStatMenn;
 
-    // Planen er å kunne utvide på alder etterhvert
+    // TODO: Planen er å kunne utvide på alder etterhvert
 
-    public DisplayStatements(int statementResourceID, double statDamer, double statMenn){
+    public DisplayThought(int statementResourceID, double statDamer, double statMenn){
         mStatementID = statementResourceID;
         mStatDamer = statDamer;
         mStatMenn = statMenn;

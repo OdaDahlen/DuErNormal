@@ -20,11 +20,12 @@ public class DisplayKropp extends AppCompatActivity {
     double mStatMenn;
 
 
-    private DisplayStatements[] mKroppStatements = new DisplayStatements[]{
-            new DisplayStatements(R.string.kropp1_tjukk, 60, 50),
-            new DisplayStatements(R.string.kropp2_stygg_kropp, 40, 90.0),
-            new DisplayStatements(R.string.kropp3_for_tynn, 0.1, 0.1),
-            new DisplayStatements(R.string.kropp4_små_muskler, 0.1, 0.1)
+    // Dette burde sikkert hentes inn fra en liste/DB:
+    private DisplayThought[] mKroppStatements = new DisplayThought[]{
+            new DisplayThought(R.string.kropp1_tjukk, 60, 50),
+            new DisplayThought(R.string.kropp2_stygg_kropp, 40, 90.0),
+            new DisplayThought(R.string.kropp3_for_tynn, 0.1, 0.1),
+            new DisplayThought(R.string.kropp4_små_muskler, 0.1, 0.1)
     };
 
 
@@ -33,13 +34,8 @@ public class DisplayKropp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_kropp);
 
-        sitat = (TextView) findViewById(R.id.sitat);
-        statDamNr= (TextView) findViewById(R.id.statistikkDamNr);
-        statDamset = (TextView) findViewById(R.id.statistikkDamset);
-        statMennNr = (TextView) findViewById(R.id.statistikkMennNr);
-        statMennset = (TextView) findViewById(R.id.statistikkMennset);
+        initialize_views();
 
-        mBnext = (Button) findViewById(R.id.mBnext_kropp);
         mBnext.setVisibility(View.VISIBLE);
 
         final int len = mKroppStatements.length;
@@ -78,5 +74,29 @@ public class DisplayKropp extends AppCompatActivity {
 
         statDamNr.setText("" + mStatDam);
         statMennNr.setText("" + mStatMenn);
+    }
+
+    public void initialize_views(){
+        sitat = findViewById(R.id.sitat);
+        statDamNr = findViewById(R.id.statistikkDamNr);
+        statMennNr = findViewById(R.id.statistikkDamset);
+        statDamset = findViewById(R.id.statistikkMennNr);
+        statMennset = findViewById(R.id.statistikkMennset);
+        mBnext = findViewById(R.id.mBnext_kropp);
+    }
+
+    public void findThought(View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        Studentstudent =
+                dbHandler.findHandler(studentname.getText().toString());
+        if (student != null) {
+            lst.setText(String.valueOf(student.getID()) + " " + student.getStudentName() + System.getProperty("line.separator"));
+            studentid.setText("");
+            studentname.setText("");
+        } else {
+            lst.setText("No Match Found");
+            studentid.setText("");
+            studentname.setText("");
+        }
     }
 }
