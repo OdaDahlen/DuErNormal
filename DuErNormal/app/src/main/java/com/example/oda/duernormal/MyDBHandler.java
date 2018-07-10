@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.view.View;
 import android.util.Log;
+import java.io.File;
 
 import org.w3c.dom.Text;
 
@@ -18,8 +19,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_NAME = "statementsDB.db";
         public static final String TABLE_NAME = "Thoughts_table";
-        public static final String COLUMN_ID = "ThoughtID";
+        public static final String ID_pri = "ThoughtID";
         public static final String COLUMN_NAME = "Thought_Text";
+
         //initialize the database
         public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -32,16 +34,22 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + COLUMN_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME + " TEXT) ";
-         //String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( ThoughtID INTEGER PRIMARY KEY, Thought TEXT) ";
-         Log.d("Error?", "In oncreate");
-         db.execSQL(CREATE_TABLE);
+            File f = new File("/data/data/com.example.oda.duernormal/databases/thoughs_database.db");
+            if (f.exists() && !f.isDirectory()) {
+                Log.d("Exists", "Table exist already");
+            } else {
+                String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + ID_pri + " INTEGER PRIMARY KEY, " + COLUMN_NAME + " TEXT) ";
+                //String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( ThoughtID INTEGER PRIMARY KEY, Thought TEXT) ";
+                Log.d("Error?", "In oncreate");
+                db.execSQL(CREATE_TABLE);
+            }
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
          db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
          onCreate(db);
+         Log.d("Onupgrade", "OnUpgrade Ran");
         }
 
         public String loadHandler() {
@@ -62,10 +70,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         public void addHandler(Thought thought) {
          ContentValues values = new ContentValues();
-         SQLiteDatabase db = this.getWritableDatabase();
-         //values.put(COLUMN_ID, thought.getID());
-         //values.put(COLUMN_ID, );
-         //Log.d("thought", String.valueOf(thought.getID()));
+         SQLiteDatabase db = this.getWritableDatabase();;
          values.put(COLUMN_NAME, thought.gettoughttext());
          Log.d("Error2", "Print4 in DBHandler");
          db.insert(TABLE_NAME, null, values);
@@ -93,7 +98,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
          public String findByID(int ID) {
 
          String thoughttest;
-         String query = "Select * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + "'" + ID + "'";
+         String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID_pri + " = " + "'" + ID + "'";
          SQLiteDatabase db = this.getWritableDatabase();
          Cursor cursor = db.rawQuery(query, null);
          if (cursor.moveToFirst()) {
@@ -110,13 +115,13 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         public boolean deleteHandler(int ID) {
          boolean result = false;
-         String query = "Select*FROM" + TABLE_NAME + "WHERE" + COLUMN_ID + "= '" + String.valueOf(ID) + "'";
+         String query = "Select*FROM" + TABLE_NAME + "WHERE" + ID_pri + "= '" + String.valueOf(ID) + "'";
          SQLiteDatabase db = this.getWritableDatabase();
          Cursor cursor = db.rawQuery(query, null);
          Thought thought = new Thought();
          if (cursor.moveToFirst()) {
           thought.setID(Integer.parseInt(cursor.getString(0)));
-          db.delete(TABLE_NAME, COLUMN_ID + "=?",
+          db.delete(TABLE_NAME, ID_pri + "=?",
                   new String[] {
            String.valueOf(thought.getID())
           });
@@ -130,8 +135,12 @@ public class MyDBHandler extends SQLiteOpenHelper{
         public boolean updateHandler(int ID, String name) {
          SQLiteDatabase db = this.getWritableDatabase();
          ContentValues args = new ContentValues();
-         args.put(COLUMN_ID, ID);
+         args.put(ID_pri, ID);
          args.put(COLUMN_NAME, name);
-         return db.update(TABLE_NAME, args, COLUMN_ID + "=" + ID, null) > 0;
+         return db.update(TABLE_NAME, args, ID_pri + "=" + ID, null) > 0;
         }
+        private static boolean doesDatabaseExist(Context context, String dbName) {
+            File dbFile = context.getDatabasePath(dbName);
+        return dbFile.exists();
+    }
  }
