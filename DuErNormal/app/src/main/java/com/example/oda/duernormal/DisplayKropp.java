@@ -2,13 +2,16 @@ package com.example.oda.duernormal;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class DisplayKropp extends AppCompatActivity {
 
     TextView sitat;
+    EditText sitatTest;
     TextView statDamNr;
     TextView statMennNr;
     TextView statDamset;
@@ -21,18 +24,18 @@ public class DisplayKropp extends AppCompatActivity {
 
 
     // Dette burde sikkert hentes inn fra en liste/DB:
-    private DisplayThought[] mKroppStatements = new DisplayThought[]{
-            new DisplayThought(R.string.kropp1_tjukk, 60, 50),
-            new DisplayThought(R.string.kropp2_stygg_kropp, 40, 90.0),
-            new DisplayThought(R.string.kropp3_for_tynn, 0.1, 0.1),
-            new DisplayThought(R.string.kropp4_små_muskler, 0.1, 0.1)
+    private DisplayGen[] mKroppStatements = new DisplayGen[]{
+            new DisplayGen(R.string.kropp1_tjukk, 60, 50),
+            new DisplayGen(R.string.kropp2_stygg_kropp, 40, 90.0),
+            new DisplayGen(R.string.kropp3_for_tynn, 0.1, 0.1),
+            new DisplayGen(R.string.kropp4_små_muskler, 0.1, 0.1)
     };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_kropp);
+        setContentView(R.layout.activity_display_test);
 
         initialize_views();
 
@@ -53,50 +56,48 @@ public class DisplayKropp extends AppCompatActivity {
 
         statDamset.setText(R.string.statdam);
         statMennset.setText(R.string.statmann);
+        Log.d("Error2", "Print1 in DisplayKropp");
 
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mIndex += 1;
                 mIndex = mIndex % len;
                 change();
+                sitatTest.setText(returnThought());
+                Log.i("tag", "taggg");
 
             }
         });
-
     }
 
-    public void change(){
-        mSitat = mKroppStatements[mIndex].getstatementID();
-        sitat.setText(mSitat);
-        mStatDam = mKroppStatements[mIndex].getStatDamer();
-        mStatMenn = mKroppStatements[mIndex].getStatMenn();
+        public void change() {
+            mSitat = mKroppStatements[mIndex].getstatementID();
+            sitat.setText(mSitat);
+            mStatDam = mKroppStatements[mIndex].getStatDamer();
+            mStatMenn = mKroppStatements[mIndex].getStatMenn();
 
-        statDamNr.setText("" + mStatDam);
-        statMennNr.setText("" + mStatMenn);
-    }
+            statDamNr.setText("" + mStatDam);
+            statMennNr.setText("" + mStatMenn);
+        }
 
-    public void initialize_views(){
-        sitat = findViewById(R.id.sitat);
-        statDamNr = findViewById(R.id.statistikkDamNr);
-        statMennNr = findViewById(R.id.statistikkDamset);
-        statDamset = findViewById(R.id.statistikkMennNr);
-        statMennset = findViewById(R.id.statistikkMennset);
-        mBnext = findViewById(R.id.mBnext_kropp);
-    }
-
-    public void findThought(View view) {
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        Studentstudent =
-                dbHandler.findHandler(studentname.getText().toString());
-        if (student != null) {
-            lst.setText(String.valueOf(student.getID()) + " " + student.getStudentName() + System.getProperty("line.separator"));
-            studentid.setText("");
-            studentname.setText("");
-        } else {
-            lst.setText("No Match Found");
-            studentid.setText("");
-            studentname.setText("");
+        public void initialize_views () {
+            sitat = findViewById(R.id.sitat);
+            sitatTest = findViewById(R.id.sitatTest1);
+            statDamNr = findViewById(R.id.statistikkDamNr);
+            statMennNr = findViewById(R.id.statistikkDamset);
+            statDamset = findViewById(R.id.statistikkMennNr);
+            statMennset = findViewById(R.id.statistikkMennset);
+            mBnext = findViewById(R.id.mBnext_kropp);
+        }
+        public String returnThought() {
+            Thought tanketest = new Thought("JEg føler meg DuM");
+            MyDBHandler dbTest = new MyDBHandler(this);
+            Log.d("Error2", "Print2 in DisplayKropp");
+            dbTest.addHandler(tanketest);
+            Log.d("Error3", "Print3 in DisplayKropp");
+            Log.i("tag", dbTest.findByID(11));
+            return dbTest.findByID(11);
         }
     }
-}

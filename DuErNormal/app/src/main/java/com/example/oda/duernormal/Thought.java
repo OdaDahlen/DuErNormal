@@ -1,5 +1,7 @@
 package com.example.oda.duernormal;
 
+import android.util.Log;
+
 public class Thought {
     // fields
     private int thoughtID;
@@ -12,9 +14,17 @@ public class Thought {
 
     // constructors
     public Thought() {}
-    public Thought(int thoughtID, String thoughtText) {
+    public Thought(int thoughtID, String thoughttext) {
+        Log.d("Error2", "Print1 in Thought");
         this.thoughtID = thoughtID;
-        this.thoughtText = thoughtText;
+        Log.d("Error2", "Print2 in Thought");
+        this.thoughtText = thoughttext;
+    }
+    public Thought(String thoughttext) {
+        //Log.d("Error2", "Print1 in Thought");
+        //this.thoughtID = thoughtID;
+        Log.d("Error2", "Print2 in Thought");
+        this.thoughtText = thoughttext;
     }
     // properties
     public void setID(int thoughtID) {
