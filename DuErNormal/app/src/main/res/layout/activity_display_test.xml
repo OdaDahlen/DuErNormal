@@ -327,11 +327,42 @@
 
     <EditText
         android:id="@+id/sitatTest1"
-        android:layout_width="316dp"
-        android:layout_height="94dp"
+        android:layout_width="170dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:cursorVisible="false"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Name"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="90dp" />
+        android:textColor="@android:color/white"
+        android:textIsSelectable="false"
+        app:layout_constraintBottom_toTopOf="@+id/textSvar1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sitat_edit"
+        app:layout_constraintVertical_bias="0.064" />
+
+    <EditText
+        android:id="@+id/sitat_edit"
+        android:layout_width="267dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:text="JAHA"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
 </android.support.constraint.ConstraintLayout>

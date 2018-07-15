@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class DisplayKropp extends AppCompatActivity {
 
     TextView sitat;
-    EditText sitatTest;
+    TextView sitatTest;
     TextView statDamNr;
     TextView statMennNr;
     TextView statDamset;
@@ -57,14 +57,17 @@ public class DisplayKropp extends AppCompatActivity {
         statDamset.setText(R.string.statdam);
         statMennset.setText(R.string.statmann);
         Log.d("Error2", "Print1 in DisplayKropp");
+        final MyDBHandler dbTest = new MyDBHandler(this);
+        Log.d("Check", dbTest.findByCategory("Kropp"));
+        sitat.setText(dbTest.findByCategory("Kropp"));
 
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sitat.setText(dbTest.findByCategory("Kropp"));
                 mIndex += 1;
                 mIndex = mIndex % len;
-                change();
+                //change();
                 sitatTest.setText(returnThought());
                 Log.i("tag", "taggg");
 
@@ -83,7 +86,7 @@ public class DisplayKropp extends AppCompatActivity {
         }
 
         public void initialize_views () {
-            sitat = findViewById(R.id.sitat);
+            sitat = findViewById(R.id.sitat_edit);
             sitatTest = findViewById(R.id.sitatTest1);
             statDamNr = findViewById(R.id.statistikkDamNr);
             statMennNr = findViewById(R.id.statistikkDamset);
@@ -92,7 +95,7 @@ public class DisplayKropp extends AppCompatActivity {
             mBnext = findViewById(R.id.mBnext_kropp);
         }
         public String returnThought() {
-            Thought tanketest = new Thought("JEg føler meg DuM");
+            Thought tanketest = new Thought("JEg føler meg DuM", "Kropp", 1, 60,60);
             MyDBHandler dbTest = new MyDBHandler(this);
             Log.d("Error2", "Print2 in DisplayKropp");
             dbTest.addHandler(tanketest);
@@ -100,4 +103,5 @@ public class DisplayKropp extends AppCompatActivity {
             Log.i("tag", dbTest.findByID(11));
             return dbTest.findByID(11);
         }
+
     }

@@ -17,10 +17,14 @@ import java.sql.Statement;
 public class MyDBHandler extends SQLiteOpenHelper{
        //information of database
         private static final int DATABASE_VERSION = 1;
-        private static final String DATABASE_NAME = "statementsDB.db";
-        public static final String TABLE_NAME = "Thoughts_table";
-        public static final String ID_pri = "ThoughtID";
-        public static final String COLUMN_NAME = "Thought_Text";
+        private static final String DATABASE_NAME = "Thoughts_DataBase_Test.db";
+        public static final String TABLE_NAME = "Thought_DataBase_Test";
+        public static final String ID_pri = "ID_primary";
+        public static final String ID_cat = "ID_category";
+        public static final String COLUMN_1 = "ID_nrincategory";
+        public static final String COLUMN_2 = "Stat_Damer";
+        public static final String COLUMN_3 = "Stat_Menn";
+        public static final String COLUMN_4 = "Thought";
 
         //initialize the database
         public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -34,11 +38,11 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            File f = new File("/data/data/com.example.oda.duernormal/databases/thoughs_database.db");
+            File f = new File("/data/data/com.example.oda.duernormal/databases/thoughts_database.db");
             if (f.exists() && !f.isDirectory()) {
                 Log.d("Exists", "Table exist already");
             } else {
-                String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + ID_pri + " INTEGER PRIMARY KEY, " + COLUMN_NAME + " TEXT) ";
+                String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + ID_pri + " INTEGER PRIMARY KEY, " + ID_cat + " INTEGER, " + COLUMN_1 + " TEXT, " + COLUMN_2 + " FLOAT, " + COLUMN_3 + " FLOAT, " + COLUMN_4 + " TEXT ) ";
                 //String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( ThoughtID INTEGER PRIMARY KEY, Thought TEXT) ";
                 Log.d("Error?", "In oncreate");
                 db.execSQL(CREATE_TABLE);
@@ -71,7 +75,11 @@ public class MyDBHandler extends SQLiteOpenHelper{
         public void addHandler(Thought thought) {
          ContentValues values = new ContentValues();
          SQLiteDatabase db = this.getWritableDatabase();;
-         values.put(COLUMN_NAME, thought.gettoughttext());
+         values.put(COLUMN_4, thought.gettoughttext());
+         values.put(ID_cat, thought.getID_category());
+         values.put(COLUMN_1, thought.getID_nrincategory());
+         values.put(COLUMN_2, thought.getStatDamer());
+         values.put(COLUMN_3, thought.getStatMenn());
          Log.d("Error2", "Print4 in DBHandler");
          db.insert(TABLE_NAME, null, values);
          Log.d("Error2", "ADDED NEW!");
@@ -80,7 +88,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         public Thought findHandler(String thoughtText) {
 
-         String query = "Select * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME + " = " + "'" + thoughtText + "'";
+         String query = "Select * FROM " + TABLE_NAME + " WHERE " + COLUMN_4 + " = " + "'" + thoughtText + "'";
          SQLiteDatabase db = this.getWritableDatabase();
          Cursor cursor = db.rawQuery(query, null);
          Thought thought = new Thought();
@@ -113,6 +121,25 @@ public class MyDBHandler extends SQLiteOpenHelper{
          return thoughttest;
          }
 
+        public String findByCategory(String ID_cat) {
+
+        String thoughttest;
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+
+            thoughttest = (cursor.getString(3));
+            Log.d("tag in findBy", thoughttest);
+            cursor.close();
+        } else {
+            thoughttest = "";
+        }
+        db.close();
+        return thoughttest;
+    }
+
         public boolean deleteHandler(int ID) {
          boolean result = false;
          String query = "Select*FROM" + TABLE_NAME + "WHERE" + ID_pri + "= '" + String.valueOf(ID) + "'";
@@ -136,7 +163,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
          SQLiteDatabase db = this.getWritableDatabase();
          ContentValues args = new ContentValues();
          args.put(ID_pri, ID);
-         args.put(COLUMN_NAME, name);
+         args.put(COLUMN_4, name);
          return db.update(TABLE_NAME, args, ID_pri + "=" + ID, null) > 0;
         }
         private static boolean doesDatabaseExist(Context context, String dbName) {
