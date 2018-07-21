@@ -17,7 +17,7 @@ import java.sql.Statement;
 public class MyDBHandler extends SQLiteOpenHelper{
        //information of database
         private static final int DATABASE_VERSION = 1;
-        private static final String DATABASE_NAME = "Thoughts_DataBase_Test.db";
+        private static final String DATABASE_NAME = "Thoughts_DataBase_Test_new.db";
         public static final String TABLE_NAME = "Thought_DataBase_Test";
         public static final String ID_pri = "ID_primary";
         public static final String ID_cat = "ID_category";
@@ -105,23 +105,85 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
          public String findByID(int ID) {
 
-         String thoughttest;
+         String catByID;
          String query = "Select * FROM " + TABLE_NAME + " WHERE " + ID_pri + " = " + "'" + ID + "'";
          SQLiteDatabase db = this.getWritableDatabase();
          Cursor cursor = db.rawQuery(query, null);
          if (cursor.moveToFirst()) {
          cursor.moveToFirst();
 
-         thoughttest = (cursor.getString(1));
+         catByID = (cursor.getString(1));
          cursor.close();
          } else {
-             thoughttest = "";
+             catByID = "";
          }
          db.close();
-         return thoughttest;
+         return catByID;
          }
 
-        public String findByCategory(String ID_cat) {
+        public String findStatByCategory(String ID_cat) {
+
+        String statByCat;
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+
+            statByCat = (cursor.getString(1));
+            Log.d("tag in findBy", statByCat);
+            cursor.close();
+        } else {
+            statByCat = "";
+        }
+        db.close();
+        return statByCat;
+    }
+
+    public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {
+
+        String thoughtByCat;
+        Integer rownr = row_nr;
+        Log.isLoggable("ROW COUNT", row_nr);
+        Log.d("h", "HALLA I ROWZ");
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToPosition(row_nr);
+        thoughtByCat = cursor.getString(5);
+        db.close();
+        return thoughtByCat;
+    }
+/*
+    public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {
+
+        String thoughtByCat;
+        Integer rownr = row_nr;
+        Log.isLoggable("ROW COUNT", row_nr);
+        Log.d("h", "HALLA I ROWZ");
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (rownr==0) {
+            cursor.moveToFirst();
+            thoughtByCat = (cursor.getString(5));
+            cursor.close();
+        }
+        else if(rownr!=0){
+            cursor.moveToNext();
+            thoughtByCat = (cursor.getString(5));
+            cursor.close();
+            Log.d("move", "ARE WE HERE EVER");
+        }
+        else {
+            thoughtByCat = "";
+        }
+        db.close();
+        return thoughtByCat;
+        */
+
+    // Most likely my error was caused by this function being a never ending loop
+   /* public String findThoughtByCategory(String ID_cat) {
 
         String thoughttest;
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
@@ -129,13 +191,29 @@ public class MyDBHandler extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    String name = cursor.getString(cursor.getColumnIndex(countyname));
+                    //list.add(name);
+                    cursor.moveToNext();
+                }
+            }
+*/
 
-            thoughttest = (cursor.getString(3));
+    public String findThoughtByCategory(String ID_cat) {
+
+        String thoughttest = "bo";
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                thoughttest = (cursor.getString(5));
+                }
+            cursor.moveToNext();
+            }
             Log.d("tag in findBy", thoughttest);
             cursor.close();
-        } else {
-            thoughttest = "";
-        }
         db.close();
         return thoughttest;
     }

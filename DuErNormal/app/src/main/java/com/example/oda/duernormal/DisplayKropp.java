@@ -19,6 +19,7 @@ public class DisplayKropp extends AppCompatActivity {
     Button mBnext;
     int mSitat;
     int mIndex = 1;
+    int rowNr = 0;
     double mStatDam;
     double mStatMenn;
 
@@ -58,17 +59,23 @@ public class DisplayKropp extends AppCompatActivity {
         statMennset.setText(R.string.statmann);
         Log.d("Error2", "Print1 in DisplayKropp");
         final MyDBHandler dbTest = new MyDBHandler(this);
-        Log.d("Check", dbTest.findByCategory("Kropp"));
-        sitat.setText(dbTest.findByCategory("Kropp"));
+        //Log.d("Check", dbTest.findStatByCategory("Kropp"));
+        //sitat.setText(dbTest.findThoughtByCategory("Kropp"));
+
 
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sitat.setText(dbTest.findByCategory("Kropp"));
-                mIndex += 1;
-                mIndex = mIndex % len;
+                //sitat.setText(dbTest.findThoughtByCategory("Kropp"));
+                sitat.setText(dbTest.findThoughtByCategory_test("Kropp", rowNr));
+                Log.i("hei", dbTest.findThoughtByCategory_test("Kropp", rowNr));
+                //mIndex += 1;
+                rowNr += 1;
+                rowNr = rowNr % 5;
+                Log.d("check_row", Integer.toString(rowNr));
+                //mIndex = mIndex % len;
                 //change();
-                sitatTest.setText(returnThought());
+                //sitatTest.setText(returnThought());
                 Log.i("tag", "taggg");
 
             }
