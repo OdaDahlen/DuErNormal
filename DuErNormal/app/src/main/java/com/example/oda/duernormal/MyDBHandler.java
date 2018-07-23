@@ -139,6 +139,17 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.close();
         return statByCat;
     }
+        Integer row = 0;
+
+    public int find_nr_of_rows_in_database(Integer row) {
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        boolean isOk = cursor.moveToFirst();
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
+    }
 
     public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {
 
@@ -151,6 +162,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToPosition(row_nr);
         thoughtByCat = cursor.getString(5);
+        cursor.close();
         db.close();
         return thoughtByCat;
     }

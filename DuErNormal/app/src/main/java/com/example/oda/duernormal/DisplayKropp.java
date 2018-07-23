@@ -61,6 +61,8 @@ public class DisplayKropp extends AppCompatActivity {
         final MyDBHandler dbTest = new MyDBHandler(this);
         //Log.d("Check", dbTest.findStatByCategory("Kropp"));
         //sitat.setText(dbTest.findThoughtByCategory("Kropp"));
+        Integer lengthofrow = dbTest.find_nr_of_rows_in_database(5);
+        Log.d("length of row", Integer.toString(lengthofrow));
 
 
         mBnext.setOnClickListener(new View.OnClickListener() {
