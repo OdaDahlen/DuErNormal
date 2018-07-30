@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import android.view.View;
 import android.util.Log;
 import java.io.File;
@@ -13,6 +14,8 @@ import java.io.File;
 import org.w3c.dom.Text;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDBHandler extends SQLiteOpenHelper{
        //information of database
@@ -141,14 +144,27 @@ public class MyDBHandler extends SQLiteOpenHelper{
     }
         Integer row = 0;
 
-    public int find_nr_of_rows_in_database(Integer row) {
-        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+    public int find_nr_of_rows_in_database() {
+        String query = "Select * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         boolean isOk = cursor.moveToFirst();
-        int cnt = cursor.getCount();
+        int count = cursor.getCount();
+        db.close();
         cursor.close();
-        return cnt;
+
+        /* cursor.moveToNext();
+        int count2 = cursor.getCount();
+        cursor.moveToNext();
+        int count3 = cursor.getCount();
+        cursor.close();
+        ArrayList counter = new ArrayList();
+        counter.add(count);
+        counter.add(count2);
+        counter.add(count3);
+        */
+
+        return count;
     }
 
     public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {

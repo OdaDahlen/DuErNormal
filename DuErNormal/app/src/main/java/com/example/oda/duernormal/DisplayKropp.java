@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DisplayKropp extends AppCompatActivity {
 
     TextView sitat;
@@ -61,9 +64,19 @@ public class DisplayKropp extends AppCompatActivity {
         final MyDBHandler dbTest = new MyDBHandler(this);
         //Log.d("Check", dbTest.findStatByCategory("Kropp"));
         //sitat.setText(dbTest.findThoughtByCategory("Kropp"));
-        Integer lengthofrow = dbTest.find_nr_of_rows_in_database(5);
-        Log.d("length of row", Integer.toString(lengthofrow));
 
+
+
+        // This will be removed as we did not need an arraylist, but a single nr as all columns are same length.
+        /*ArrayList<Integer> length_of_db = new ArrayList<Integer>();
+        length_of_db = dbTest.find_nr_of_rows_in_database();
+        final int col_length = length_of_db.get(0).intValue();
+        final String col1 = length_of_db.get(0).toString();
+        */
+
+        final int length_of_db = dbTest.find_nr_of_rows_in_database();
+
+        Log.d("length of col", String.valueOf(length_of_db);
 
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +86,11 @@ public class DisplayKropp extends AppCompatActivity {
                 Log.i("hei", dbTest.findThoughtByCategory_test("Kropp", rowNr));
                 //mIndex += 1;
                 rowNr += 1;
-                rowNr = rowNr % 5;
+                rowNr = rowNr % length_of_db;
                 Log.d("check_row", Integer.toString(rowNr));
                 //mIndex = mIndex % len;
                 //change();
                 //sitatTest.setText(returnThought());
-                Log.i("tag", "taggg");
 
             }
         });
