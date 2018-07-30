@@ -153,17 +153,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.close();
         cursor.close();
 
-        /* cursor.moveToNext();
-        int count2 = cursor.getCount();
-        cursor.moveToNext();
-        int count3 = cursor.getCount();
-        cursor.close();
-        ArrayList counter = new ArrayList();
-        counter.add(count);
-        counter.add(count2);
-        counter.add(count3);
-        */
-
         return count;
     }
 

@@ -27,15 +27,6 @@ public class DisplayKropp extends AppCompatActivity {
     double mStatMenn;
 
 
-    // Dette burde sikkert hentes inn fra en liste/DB:
-    private DisplayGen[] mKroppStatements = new DisplayGen[]{
-            new DisplayGen(R.string.kropp1_tjukk, 60, 50),
-            new DisplayGen(R.string.kropp2_stygg_kropp, 40, 90.0),
-            new DisplayGen(R.string.kropp3_for_tynn, 0.1, 0.1),
-            new DisplayGen(R.string.kropp4_små_muskler, 0.1, 0.1)
-    };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +36,7 @@ public class DisplayKropp extends AppCompatActivity {
 
         mBnext.setVisibility(View.VISIBLE);
 
-        final int len = mKroppStatements.length;
-
-        // comment
-
-
-        mSitat = mKroppStatements[mIndex].getstatementID();
-        sitat.setText(mSitat);
+        //TODO: set text for the
         mStatDam = mKroppStatements[mIndex].getStatDamer();
         mStatMenn = mKroppStatements[mIndex].getStatMenn();
 
@@ -81,10 +66,10 @@ public class DisplayKropp extends AppCompatActivity {
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sitat.setText(dbTest.findThoughtByCategory("Kropp"));
+
                 sitat.setText(dbTest.findThoughtByCategory_test("Kropp", rowNr));
                 Log.i("hei", dbTest.findThoughtByCategory_test("Kropp", rowNr));
-                //mIndex += 1;
+                statDamNr.setText(dbTest.findStatByCategory("Kropp", rowNr));
                 rowNr += 1;
                 rowNr = rowNr % length_of_db;
                 Log.d("check_row", Integer.toString(rowNr));
