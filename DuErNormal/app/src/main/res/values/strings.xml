@@ -5,7 +5,7 @@
     <string name="velg">Velg kategori</string>
     <string name="tilfeldig">Vis tilfeldige</string>
     <string name="neste">Neste</string>
-    <string name="statdam"> % av damer </string>
+    <string name="statdam"> % av damer i alderen 0 &#8211; 100 år</string>
     <string name="statmann"> % av menn i alderen 0 &#8211; 100 år</string>
     <string name="stem">Stem</string>
 

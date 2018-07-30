@@ -159,9 +159,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {
 
         String thoughtByCat;
-        Integer rownr = row_nr;
-        Log.isLoggable("ROW COUNT", row_nr);
-        Log.d("h", "HALLA I ROWZ");
+        Log.isLoggable("ROW NR", row_nr);
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -170,6 +168,34 @@ public class MyDBHandler extends SQLiteOpenHelper{
         cursor.close();
         db.close();
         return thoughtByCat;
+    }
+
+    public String findStatWomen(String ID_cat, Integer row_nr) {
+
+        String statWomen = "";
+        Log.isLoggable("ROW COUNT", row_nr);
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToPosition(row_nr);
+        statWomen = cursor.getString(3);
+        cursor.close();
+        db.close();
+        return statWomen;
+    }
+
+    public String findStatMen(String ID_cat, Integer row_nr) {
+
+        String statMen = "";
+        Log.isLoggable("ROW COUNT", row_nr);
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToPosition(row_nr);
+        statMen = cursor.getString(4);
+        cursor.close();
+        db.close();
+        return statMen;
     }
 /*
     public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {

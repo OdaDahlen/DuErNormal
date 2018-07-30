@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="67dp"
-        android:layout_height="42dp"
+        android:layout_width="40dp"
+        android:layout_height="21dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -40,13 +40,13 @@
         android:text="@string/kropp"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="22sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/statistikkMennNr"
@@ -204,6 +204,7 @@
         android:layout_height="33dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/statdam"
@@ -212,10 +213,9 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.726"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/statistikkDamNr"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintVertical_bias="0.354" />
 
     <Button
         android:id="@+id/mBnext_kropp"
@@ -243,7 +243,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
+        android:background="@android:drawable/radiobutton_off_background"
         android:text="@string/stem"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -261,7 +261,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
+        android:background="@android:drawable/radiobutton_off_background"
         android:text="@string/stem"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -279,7 +279,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
+        android:background="@android:drawable/radiobutton_off_background"
         android:text="@string/stem"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -297,7 +297,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
+        android:background="@android:drawable/radiobutton_off_background"
         android:text="@string/stem"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -315,7 +315,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
+        android:background="@android:drawable/radiobutton_off_background"
         android:text="@string/stem"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -338,7 +338,6 @@
         android:cursorVisible="false"
         android:ems="10"
         android:textColor="@android:color/white"
-        android:textIsSelectable="false"
         app:layout_constraintBottom_toTopOf="@+id/textSvar1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -348,8 +347,8 @@
 
     <EditText
         android:id="@+id/sitat_edit"
-        android:layout_width="242dp"
-        android:layout_height="56dp"
+        android:layout_width="302dp"
+        android:layout_height="76dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
