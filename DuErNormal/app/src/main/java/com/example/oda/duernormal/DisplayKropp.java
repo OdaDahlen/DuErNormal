@@ -46,37 +46,30 @@ public class DisplayKropp extends AppCompatActivity {
         final int length_of_db = dbTest.find_nr_of_rows_in_database();
 
         Log.d("length of db", String.valueOf(length_of_db));
+        if(length_of_db <= 0){
+            Log.d("Error", "Length of db is 0");
+        }
 
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                sitat.setText(dbTest.findThoughtByCategory_test("Kropp", rowNr));
-                Log.i("hei", dbTest.findThoughtByCategory_test("Kropp", rowNr));
-                statDamNr.setText(dbTest.findStatWomen("Kropp", rowNr));
-                statMennNr.setText(dbTest.findStatMen("Kropp", rowNr));
                 rowNr += 1;
                 rowNr = rowNr % length_of_db;
+                Log.isLoggable("Rownr", rowNr);
+                sitat.setText(dbTest.findThoughtByCategory_test("kropp", rowNr));
+                Log.i("hei", dbTest.findThoughtByCategory_test("kropp", rowNr));
+                statDamNr.setText(dbTest.findStatWomen("kropp", rowNr));
+                statMennNr.setText(dbTest.findStatMen("kropp", rowNr));
+
                 Log.d("check_row", Integer.toString(rowNr));
                 //change();
             }
         });
     }
 
-       /* public void change() {
-            mSitat = mKroppStatements[mIndex].getstatementID();
-            sitat.setText(mSitat);
-            mStatDam = mKroppStatements[mIndex].getStatDamer();
-            mStatMenn = mKroppStatements[mIndex].getStatMenn();
-
-            statDamNr.setText("" + mStatDam);
-            statMennNr.setText("" + mStatMenn);
-        }
-        */
-
         public void initialize_views () {
             sitat = findViewById(R.id.sitat_edit);
-            sitatTest = findViewById(R.id.sitatTest1);
             statDamNr = findViewById(R.id.statistikkDamNr);
             statMennNr = findViewById(R.id.statistikkMennNr);
             statDamset = findViewById(R.id.statistikkDamset);

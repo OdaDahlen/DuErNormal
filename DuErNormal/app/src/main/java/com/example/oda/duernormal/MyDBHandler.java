@@ -163,6 +163,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
+        //if( cursor != null && cursor.moveToFirst() ){
+        //}
+        //else {Log.d("eic","error in cursor");}
         cursor.moveToPosition(row_nr);
         thoughtByCat = cursor.getString(5);
         cursor.close();
@@ -177,7 +180,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + ID_cat + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToPosition(row_nr);
+        if( cursor != null && cursor.moveToFirst() ){
+            cursor.moveToPosition(row_nr);
+        }
         statWomen = cursor.getString(3);
         cursor.close();
         db.close();

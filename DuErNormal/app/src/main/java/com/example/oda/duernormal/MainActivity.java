@@ -55,3 +55,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 }
+
+
+
+
+
+// TODO: legge inn flere i flere kategorier
+//aktivere stemmeknappene
+// TODO: Hvordan ta inn statistikken og hvordan få oppdatert databasen?
+// Genere brukeranonymitet vha QR-kode
+// Legge til en kolonne i databasen som identifiserer om det er mann eller dame  så de senere kan sorteres på det
+// (Vil du se spesifikke for menn damer eller mer generelle?) Må også kunne sammenslå kjønn.
+// I tillegg kolonner på statdamer 12-15 år, etc etc.
+//Forenkle stemmingen?
+//Grafer. Se graf over hvordan den aldersgruppen har utviklet seg
+// Personlig utvikling.
