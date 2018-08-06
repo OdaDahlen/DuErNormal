@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,20 +31,23 @@ public class DisplayKropp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        final String category = intent.getExtras().getString("cat");
+        Log.d("Cat imported is", category);
         setContentView(R.layout.activity_display_test);
 
         initialize_views();
 
+
         mBnext.setVisibility(View.VISIBLE);
-
         //TODO: set text for the
-
         statDamset.setText(R.string.statdam);
         statMennset.setText(R.string.statmann);
         Log.d("Error2", "Print1 in DisplayKropp");
         final MyDBHandler dbTest = new MyDBHandler(this);
 
-        final int length_of_db = dbTest.find_nr_of_rows_in_database();
+        //final int length_of_db = dbTest.find_nr_of_rows_in_database();
+        final int length_of_db = dbTest.find_nr_of_rows_in_database_by_cat2(category);
 
         Log.d("length of db", String.valueOf(length_of_db));
         if(length_of_db <= 0){
@@ -54,15 +58,15 @@ public class DisplayKropp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                rowNr += 1;
                 rowNr = rowNr % length_of_db;
+                Log.d("check_row_1", Integer.toString(rowNr));
                 Log.isLoggable("Rownr", rowNr);
-                sitat.setText(dbTest.findThoughtByCategory_test("kropp", rowNr));
-                Log.i("hei", dbTest.findThoughtByCategory_test("kropp", rowNr));
-                statDamNr.setText(dbTest.findStatWomen("kropp", rowNr));
-                statMennNr.setText(dbTest.findStatMen("kropp", rowNr));
-
-                Log.d("check_row", Integer.toString(rowNr));
+                sitat.setText(dbTest.findThoughtByCategory_test(category, rowNr));
+                Log.i("hei", dbTest.findThoughtByCategory_test(category, rowNr));
+                statDamNr.setText(dbTest.findStatWomen(category, rowNr));
+                statMennNr.setText(dbTest.findStatMen(category, rowNr));
+                rowNr += 1;
+                Log.d("check_row_2", Integer.toString(rowNr));
                 //change();
             }
         });

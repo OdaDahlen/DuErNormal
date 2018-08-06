@@ -156,6 +156,30 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return count;
     }
 
+    public int find_nr_of_rows_in_database_by_cat(String Category) {
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + Category + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        boolean isOk = cursor.moveToFirst();
+        int count = cursor.getCount();
+        db.close();
+        cursor.close();
+
+        return count;
+    }
+
+    public int find_nr_of_rows_in_database_by_cat2(String Category) {
+        String query = "Select count(*) FROM " + TABLE_NAME + " WHERE " + this.ID_cat + " = " + "'" + Category + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        boolean isOk = cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        db.close();
+        cursor.close();
+
+        return count;
+    }
+
     public String findThoughtByCategory_test(String ID_cat, Integer row_nr) {
 
         String thoughtByCat;

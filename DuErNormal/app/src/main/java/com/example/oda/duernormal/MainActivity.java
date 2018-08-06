@@ -44,12 +44,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String cat;
         switch(v.getId()) {
             case R.id.mBkropp:
-                startActivity(new Intent(MainActivity.this, DisplayKropp.class));
+                cat  = "kropp";
+                Intent i = new Intent(MainActivity.this, DisplayKropp.class);
+                i.putExtra("cat", cat);
+                startActivity(i);
                 break;
+
             case R.id.mButseendet:
-                startActivity(new Intent(MainActivity.this, DisplayKropp.class));
+                cat  = "utseendet";
+                Intent j = new Intent(MainActivity.this, DisplayKropp.class);
+                j.putExtra("cat", cat);
+                startActivity(j);
+                break;
+
+            case R.id.mBpersonlighet:
+                cat  = "personlighet";
+                Intent n = new Intent(MainActivity.this, DisplayKropp.class);
+                n.putExtra("cat", cat);
+                startActivity(n);
+                break;
+
+            case R.id.mBforeldre:
+                cat  = "foreldre";
+                Intent l = new Intent(MainActivity.this, DisplayKropp.class);
+                l.putExtra("cat", cat);
+                startActivity(l);
+                break;
+            case R.id.mBsosialt:
+                cat  = "sosialt";
+                Intent m = new Intent(MainActivity.this, DisplayKropp.class);
+                m.putExtra("cat", cat);
+                startActivity(m);
+                break;
+            case R.id.mBgenerelt:
+                cat  = "generelt";
+                //TODO her må vi telle hele databasen. PLuss, kan vi få de random?
+                Intent k = new Intent(MainActivity.this, DisplayKropp.class);
+                k.putExtra("cat", cat);
+                startActivity(k);
                 break;
         }
 
