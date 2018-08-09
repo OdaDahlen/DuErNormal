@@ -20,7 +20,7 @@ import java.util.List;
 public class MyDBHandler extends SQLiteOpenHelper{
        //information of database
         private static final int DATABASE_VERSION = 1;
-        private static final String DATABASE_NAME = "Thoughts_DataBase_Test_new.db";
+        private static final String DATABASE_NAME = "Thoughts_DataBase_Test_new1.db";
         public static final String TABLE_NAME = "Thought_DataBase_Test";
         public static final String ID_pri = "ID_primary";
         public static final String ID_cat = "ID_category";
