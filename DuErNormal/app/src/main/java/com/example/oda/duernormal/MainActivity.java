@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBpersonlighet.setOnClickListener(this);
         mBgenerelt.setOnClickListener(this);
         mBtilfeldige.setOnClickListener(this);
+        mLoginButton.setOnClickListener(this);
 
         //case R.id.mLoginButton:
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -68,8 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     public void SignInIn(){
+
+        //Log.d("SignInCall", "Sign in is called");
         Toast.makeText(this, "SignIn is called", Toast.LENGTH_LONG);
-        Log.d("SignInCall", "Sign in is called");
         final String TAG = "AnonymousAuth";
         mAuth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
      @Override
@@ -78,16 +80,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Sign in success, update UI with the signed-in user's information
         Log.d(TAG, "signInAnonymously:success");
         FirebaseUser user = mAuth.getCurrentUser();
-        //updateUI(user);
+        Log.d("Name of user", user.toString());
+        updateUI(user);
         }else{
         // If sign in fails, display a message to the user.
         Log.d(TAG, "signInAnonymously:failure", task.getException());
         Toast.makeText(MainActivity.this,"Authentication failed.", Toast.LENGTH_SHORT).show();
-        //updateUI(null);
+        updateUI(null);
         }
         }
         });
     };
+
+    private void updateUI(FirebaseUser user) {
+        hideProgressDialog();
+
+        TextView idView = findViewById(R.id.anonymous_status_id);
+        TextView emailView = findViewById(R.id.anonymous_status_email);
+        boolean isSignedIn = (user != null);
+
+        // Status text
+        if (isSignedIn) {
+            idView.setText(getString(R.string.id_fmt, user.getUid()));
+            emailView.setText(getString(R.string.email_fmt, user.getEmail()));
+        } else {
+            idView.setText(R.string.signed_out);
+            emailView.setText(null);
+        }
+
+        // Button visibility
+        findViewById(R.id.button_anonymous_sign_in).setEnabled(!isSignedIn);
+        findViewById(R.id.button_anonymous_sign_out).setEnabled(isSignedIn);
+        findViewById(R.id.button_link_account).setEnabled(isSignedIn);
+    }
 
 
     @Override
