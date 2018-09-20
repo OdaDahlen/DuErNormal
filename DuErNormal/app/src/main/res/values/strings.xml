@@ -8,6 +8,8 @@
     <string name="statdam"> % av damer i alderen 0 &#8211; 100 år</string>
     <string name="statmann"> % av menn i alderen 0 &#8211; 100 år</string>
     <string name="stem">Stem</string>
+    <string name="signedin">You are signed in.</string>
+    <string name="signedout">You are not signed in.</string>
 
     <!-- Facts to display on front page -->
     <string name="selvmord_menn">Selvmordsraten hos menn er x pst høyere hos menn enn hos kvinner. Dette fordi </string>

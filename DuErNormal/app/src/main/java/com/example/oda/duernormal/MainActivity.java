@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button mBtilfeldige = findViewById(R.id.mBtilfeldige);
 
         Button mLoginButton = findViewById(R.id.mLoginButton);
+        TextView signedInText = findViewById(R.id.signintext);
 
         mBkropp.setOnClickListener(this);
         mButseendet.setOnClickListener(this);
@@ -93,6 +95,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     private void updateUI(FirebaseUser user) {
+        if (user == null) {
+            TextView signedInText = findViewById(R.id.signintext);
+            signedInText.setText("not signed in");
+        } else {
+            TextView signedInText = findViewById(R.id.signintext);
+            signedInText.setText("You are logged in");
+        }
+    };
+
+   /* private void updateUI(FirebaseUser user) {
         hideProgressDialog();
 
         TextView idView = findViewById(R.id.anonymous_status_id);
@@ -113,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button_anonymous_sign_out).setEnabled(isSignedIn);
         findViewById(R.id.button_link_account).setEnabled(isSignedIn);
     }
-
+*/
 
     @Override
         public void onClick(View v) {
