@@ -41,7 +41,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            File f = new File("/data/data/com.example.oda.duernormal/databases/thoughts_database.db");
+            File f = new File("/data/data/com.example.oda.duernormal/databases/Thoughts_DataBase_Test_new1.db");
             if (f.exists() && !f.isDirectory()) {
                 Log.d("Exists", "Table exist already");
             } else {

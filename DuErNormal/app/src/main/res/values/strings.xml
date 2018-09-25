@@ -10,6 +10,8 @@
     <string name="stem">Stem</string>
     <string name="signedin">You are signed in.</string>
     <string name="signedout">You are not signed in.</string>
+    <string name="signin">Sign in</string>
+    <string name="signout">Sign out.</string>
 
     <!-- Facts to display on front page -->
     <string name="selvmord_menn">Selvmordsraten hos menn er x pst høyere hos menn enn hos kvinner. Dette fordi </string>
