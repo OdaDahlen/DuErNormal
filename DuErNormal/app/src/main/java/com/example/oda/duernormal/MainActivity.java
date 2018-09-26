@@ -26,6 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 import java.util.EventListener;
 import java.util.Locale;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView signedInText;
     Button mLoginButton;
     Button mLogoutButton;
+    ValueEventListener vel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,18 +136,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        mFiredatabase.child("Thoughts").addValueEventListener(new ValueEventListener() {
+       vel = mFiredatabase.child("Thoughts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Log.d("E", "ER!");
+                    Log.d("Snapshotexistence", "Snapshoteksisterer!");
                 } else {
-                    Log.d("IE", "ER_IKKE!");
+                    Log.d("IkkesnapshotE", "SnapshoteksistererIKKE!");
                 }
-                Thoughts thoughts = dataSnapshot.getValue(Thoughts.class);
+                //Thoughts thoughts = dataSnapshot.getValue(Thoughts.class);
+                Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
+                //Map<String, Object> map =(Map<String, Object>) thoughts;
+                Log.d("trying mapping", "Value is: " + map);
+
                 //thought_list.add(thoughts);
                 Log.d("HMMMMMM", "Booo");
-                Log.d("FROM DATA", thoughts.mCategory);
+                //System.out.println(thoughts);
+                //Log.d("FROM DATA", thoughts.toString());
+                mFiredatabase.child("Thoughts").removeEventListener(vel);
             }
 
             @Override
