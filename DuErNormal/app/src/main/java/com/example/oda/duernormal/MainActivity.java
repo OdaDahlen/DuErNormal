@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-       vel = mFiredatabase.child("Thoughts").addValueEventListener(new ValueEventListener() {
+       vel = mFiredatabase.child("Thoughts").child("Category").child("Kropp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -145,9 +145,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("IkkesnapshotE", "SnapshoteksistererIKKE!");
                 }
                 //Thoughts thoughts = dataSnapshot.getValue(Thoughts.class);
+                //Thoughts thoughts = dataSnapshot.getValue();
+                //Map<String, Object> mappp = new Map<String, Object>();
+                //mappp = dataSnapshot.getValue();
                 Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
                 //Map<String, Object> map =(Map<String, Object>) thoughts;
                 Log.d("trying mapping", "Value is: " + map);
+                for(Map.Entry<String, Object> entry: map.entrySet()) {
+                    System.out.println("mapping");
+                    System.out.println(entry.getKey() + " : " + entry.getValue());
+                }
+
+                //Log.d("trying to get around inside map", map[1,1]);
+
+                // Q: Why do I not have to write Thoughts.class inside the get value?
+                //Q: Why can I not first use //Thoughts thoughts = dataSnapshot.getValue(); and then//Map<String, Object> map =(Map<String, Object>) thoughts;?
+                //A: Well, because
 
                 //thought_list.add(thoughts);
                 Log.d("HMMMMMM", "Booo");
