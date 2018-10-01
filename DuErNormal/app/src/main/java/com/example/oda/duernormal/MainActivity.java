@@ -35,11 +35,10 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
-    DatabaseReference mFiredatabase;
+
     TextView signedInText;
     Button mLoginButton;
     Button mLogoutButton;
-    ValueEventListener vel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mAuth = FirebaseAuth.getInstance();
-        //mFiredatabaseHandle = new FiredatabaseHandler(mFiredatabaseHandler);
-        // Not sure why I can not use mFiredatabaseHandler as dbref is used below
-
-        mFiredatabase = FirebaseDatabase.getInstance().getReference();
-        Log.d("Firebasedatabase", mFiredatabase.toString());
-        //mFiredatabase = FirebaseDatabase.getInstance().getReference("https://duernormal-1522016527947,firebaseio,com/").child("Thoughts");
-        //FirebaseDatabase fb = FirebaseDatabase.getInstance();
-        //DatabaseReference dbref = fb.getReference();
-        //mFiredatabase.child("Thoughts").child("Category").addValueEventListener(new ValueEventListener() {
-
-        //);
 
 
-        //super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // The buttons
@@ -90,126 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLogoutButton.setOnClickListener(this);
         mLogoutButton.setVisibility(View.INVISIBLE);
 
-        //case R.id.mLoginButton:
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //MyFireDBHandler
 
         }
-/*        @Override
-        protected void onStart () {
-            super.onStart();
-            String txt = "hey";
-            Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
-            Log.d("Printing Thoughts.class", Thoughts.class.toString()); //Prints the file/class-name (com.example.oda.duernormal.Thoughts.class)
-            //Log.d("Try", mFiredatabase.getKey());
-
-
-            ValueEventListener listen = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Thoughts thoughts = dataSnapshot.getValue(Thoughts.class);
-                    Log.d("HMMMMMM", "Booo");
-                    Log.d("FROM DATA", thoughts.mCategory);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d("Errormsg", "Error!!");
-                }
-
-            };
-            mFiredatabase.addValueEventListener(listen);
-
-    };
-    */
-
-    @Override
-    protected void onStart () {
-        super.onStart();
-        String txt = "hey";
-        Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
-        Log.d("Printing Thoughts.class", Thoughts.class.toString()); //Prints the file/class-name (com.example.oda.duernormal.Thoughts.class)
-        //Log.d("Try", mFiredatabase);
-        //mFiredatabase.getDatabase().getReference().
-        if (mFiredatabase == null){
-            Log.d("isnull", "Noooo");
-        }
-
-
-       vel = mFiredatabase.child("Thoughts").child("Category").child("Kropp").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Log.d("Snapshotexistence", "Snapshoteksisterer!");
-                } else {
-                    Log.d("IkkesnapshotE", "SnapshoteksistererIKKE!");
-                }
-                //Thoughts thoughts = dataSnapshot.getValue(Thoughts.class);
-                //Thoughts thoughts = dataSnapshot.getValue();
-                //Map<String, Object> mappp = new Map<String, Object>();
-                //mappp = dataSnapshot.getValue();
-                Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
-                //Map<String, Object> map =(Map<String, Object>) thoughts;
-                Log.d("trying mapping", "Value is: " + map);
-                for(Map.Entry<String, Object> entry: map.entrySet()) {
-                    System.out.println("mapping");
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
-                }
-
-                //Log.d("trying to get around inside map", map[1,1]);
-
-                // Q: Why do I not have to write Thoughts.class inside the get value?
-                //Q: Why can I not first use //Thoughts thoughts = dataSnapshot.getValue(); and then//Map<String, Object> map =(Map<String, Object>) thoughts;?
-                //A: Well, because
-
-                //thought_list.add(thoughts);
-                Log.d("HMMMMMM", "Booo");
-                //System.out.println(thoughts);
-                //Log.d("FROM DATA", thoughts.toString());
-                mFiredatabase.child("Thoughts").removeEventListener(vel);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Errormsg", "Error!!");
-            }
-        });
-    };
-
-   /*
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Add value event listener to the post
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Post post = dataSnapshot.getValue(Post.class);
-
-                mAuthorView.setText(post.author);
-                mTitleView.setText(post.title);
-                mBodyView.setText(post.body);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                Toast.makeText(PostDetailActivity.this, "Failed to load post.", Toast.LENGTH_SHORT).show();
-            }
-        };
-        mPostReference.addValueEventListener(postListener);
-
-        // Keep copy of post listener so we can remove it when app stops
-        mPostListener = postListener;
-
-        // Listen for comments
-        mAdapter = new CommentAdapter(this, mCommentsReference);
-        mCommentsRecycler.setAdapter(mAdapter);
-    }
-*/
 
     public void SignInIn(){
 
@@ -249,36 +119,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-   /* private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
-
-        TextView idView = findViewById(R.id.anonymous_status_id);
-        TextView emailView = findViewById(R.id.anonymous_status_email);
-        boolean isSignedIn = (user != null);
-
-        // Status text
-        if (isSignedIn) {
-            idView.setText(getString(R.string.id_fmt, user.getUid()));
-            emailView.setText(getString(R.string.email_fmt, user.getEmail()));
-        } else {
-            idView.setText(R.string.signed_out);
-            emailView.setText(null);
-        }
-
-        // Button visibility
-        findViewById(R.id.button_anonymous_sign_in).setEnabled(!isSignedIn);
-        findViewById(R.id.button_anonymous_sign_out).setEnabled(isSignedIn);
-        findViewById(R.id.button_link_account).setEnabled(isSignedIn);
-    }
-*/
-
     @Override
         public void onClick(View v) {
         String cat;
         switch (v.getId()) {
             case R.id.mBkropp:
                 cat = "kropp";
-                Intent i = new Intent(MainActivity.this, DisplayKropp.class);
+                Intent i = new Intent(MainActivity.this, ViewDatabase.class);
                 i.putExtra("cat", cat);
                 startActivity(i);
                 break;
@@ -309,12 +156,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 m.putExtra("cat", cat);
                 startActivity(m);
                 break;
+            /*
             case R.id.mBgenerelt:
                 cat = "generelt";
                 //TODO her må vi telle hele databasen. PLuss, kan vi få de random?
                 Intent k = new Intent(MainActivity.this, DisplayKropp.class);
                 k.putExtra("cat", cat);
                 startActivity(k);
+                break;
+                */
+            case R.id.mBgenerelt:
+                cat = "generelt";
+                //TODO her må vi telle hele databasen. PLuss, kan vi få de random?
+
                 break;
             case R.id.mLoginButton:
                 SignInIn();
@@ -323,35 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }};
-
-//updateUI(currentUser);
-//private static final String TAG = "AnonymousAuth";
-
-/*public String SignIn(){
-        String TAG = "AnonymousAuth";
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
-@Override
-public void onComplete(@NonNull Task<AuthResult> task){
-        if(task.isSuccessful()){
-        // Sign in success, update UI with the signed-in user's information
-        //Log.d(TAG, "signInAnonymously:success");
-        FirebaseUser user=mAuth.getCurrentUser();
-        //updateUI(user);
-        }else{
-        // If sign in fails, display a message to the user.
-        //Log.d(TAG, "signInAnonymously:failure", task.getException());
-        Toast.makeText(MainActivity.this,"Authentication failed.",
-        Toast.LENGTH_SHORT).show();
-        //updateUI(null);
-        }
-
-        // ...
-        }
-        }
-        return user;
-        };
-*/
 
 
 // TODO: legge inn flere i flere kategorier

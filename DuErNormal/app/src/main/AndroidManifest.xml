@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DisplayKropp"></activity>
+        <activity android:name=".ViewDatabase"></activity>
     </application>
 
 </manifest>
