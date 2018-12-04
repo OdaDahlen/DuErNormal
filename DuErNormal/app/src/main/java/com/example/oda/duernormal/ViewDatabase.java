@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
 import java.util.Map;
 
 public class ViewDatabase extends AppCompatActivity {
@@ -36,6 +37,16 @@ public class ViewDatabase extends AppCompatActivity {
     double mStatDam;
     double mStatMenn;
     private FirebaseAuth mAuth;
+    String maa;
+    DataSnapshot map2;
+    DataSnapshot dataInstance_DS;
+    DataSnapshot dataInstance_A;
+    StatThought tKropp22;
+    StatThought valueof;
+    String text_set;
+    Long stat_set;
+    Iterator<DataSnapshot> it;
+    Iterable<DataSnapshot> children;
 
 
     @Override
@@ -46,7 +57,7 @@ public class ViewDatabase extends AppCompatActivity {
         mBnext.setVisibility(View.VISIBLE);
         Intent intent = getIntent();
         final String category = intent.getExtras().getString("cat");
-        Log.d("Cat imported is", category);
+        Log.d("Cat in firebase is", category);
        // mAuth = FirebaseAuth.getInstance();
 
         FirebaseApp.initializeApp(this);
@@ -54,28 +65,44 @@ public class ViewDatabase extends AppCompatActivity {
         mFiredatabase = FirebaseDatabase.getInstance().getReference();
         Log.d("Firebasedatabase", mFiredatabase.toString());
 
-        String txt = "hey";
-        Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
+        //String txt = "hey";
+        //Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
 
         if (mFiredatabase == null){
             Log.d("isnull", "Noooo");
         }
-        vel = mFiredatabase.child("Thoughts").child("Category").child("Kropp").addValueEventListener(new ValueEventListener() {
+        vel = mFiredatabase.child("Thoughts").child("Category").child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("InOnDataChange", "on data change");
 
-                Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
 
-                Log.d("trying mapping", "Value is: " + map);
+                Log.d("Nr of children", Long.toString(dataSnapshot.getChildrenCount()));
+
+                dataInstance_DS = dataSnapshot;
+                Log.d("datainst", dataInstance_DS.toString());
+                children = dataInstance_DS.getChildren();
+                it = children.iterator();
+
+                //Log.d();
+
+                //map2 = dataSnapshot.child("tKropp2");
+                //tKropp22 = map2.getValue(StatThought.class);
+                //Log.d("t1", tKropp22.getStat().toString());
+                //Log.d("t2", tKropp22.getText());
+
+                //Object object = map.get("tKropp2");
+
+                //Log.d("trying mapping", "Value is: " + map);
+/*
                 for(Map.Entry<String, Object> entry: map.entrySet()) {
                     System.out.println("mapping");
                     System.out.println(entry.getKey() + " : " + entry.getValue());
                 }
+*/
+                //Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
 
-                Log.d("HMMMMMM", "Booo");
-
-                mFiredatabase.child("Thoughts").removeEventListener(vel);
+                //mFiredatabase.child("Thoughts").removeEventListener(vel);
             }
 
             @Override
@@ -87,14 +114,40 @@ public class ViewDatabase extends AppCompatActivity {
         mBnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // showData(category);
+                Log.d("clicked", "clicked");
+
+                /* String listenTo = "tKropp";
+                listenTo = listenTo + "2";
+                listenTo = "tKropp2";
+                Log.d("listenTo",listenTo);
+                dataInstance_A = dataInstance_DS.child(listenTo);
+                valueof = dataInstance_A.getValue(StatThought.class);
+                Log.d("valueof", valueof.getStat().toString());
+                Log.d("valueof", valueof.getText());
+                */
+
+                if(!it.hasNext()) {
+                    children = dataInstance_DS.getChildren();
+                    it = children.iterator();
+                }
+                StatThought child = it.next().getValue(StatThought.class);
+                //String a = "hey";
+                //sitat.setText("hey");
+                //CharSequence text_set = child.getText();
+                Log.d("valueof", child.getStat().toString());
+                Log.d("valueof", child.getText());
+                sitat.setText(child.getText());
+                statDamNr.setText(child.getStat().toString());
+                statMennNr.setText(child.getStat().toString()); //This is now
+                //Log.d("valueof", text_set);
+
             }
         });
 
 
     }
     public void initialize_views () {
-        sitat = findViewById(R.id.sitat_edit);
+        sitat = findViewById(R.id.sitat);
         statDamNr = findViewById(R.id.statistikkDamNr);
         statMennNr = findViewById(R.id.statistikkMennNr);
         statDamset = findViewById(R.id.statistikkDamset);

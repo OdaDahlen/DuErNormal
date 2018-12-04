@@ -124,35 +124,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String cat;
         switch (v.getId()) {
             case R.id.mBkropp:
-                cat = "kropp";
+                cat = "Kropp";
                 Intent i = new Intent(MainActivity.this, ViewDatabase.class);
                 i.putExtra("cat", cat);
                 startActivity(i);
                 break;
 
             case R.id.mButseendet:
-                cat = "utseendet";
-                Intent j = new Intent(MainActivity.this, DisplayKropp.class);
+                cat = "Utseendet";
+                Intent j = new Intent(MainActivity.this, ViewDatabase.class);
                 j.putExtra("cat", cat);
                 startActivity(j);
                 break;
 
             case R.id.mBpersonlighet:
-                cat = "personlighet";
-                Intent n = new Intent(MainActivity.this, DisplayKropp.class);
+                cat = "Personlighet";
+                Intent n = new Intent(MainActivity.this, ViewDatabase.class);
                 n.putExtra("cat", cat);
                 startActivity(n);
                 break;
 
             case R.id.mBforeldre:
-                cat = "foreldre";
-                Intent l = new Intent(MainActivity.this, DisplayKropp.class);
+                cat = "Familieliv";
+                Intent l = new Intent(MainActivity.this, ViewDatabase.class);
                 l.putExtra("cat", cat);
                 startActivity(l);
                 break;
             case R.id.mBsosialt:
-                cat = "sosialt";
-                Intent m = new Intent(MainActivity.this, DisplayKropp.class);
+                cat = "Sosialt";
+                Intent m = new Intent(MainActivity.this, ViewDatabase.class);
                 m.putExtra("cat", cat);
                 startActivity(m);
                 break;

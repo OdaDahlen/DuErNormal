@@ -32,12 +32,10 @@ public class DisplayKropp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         final String category = intent.getExtras().getString("cat");
-        Log.d("Cat imported is", category);
+        Log.d("Cat IMPORTED is:", category);
         setContentView(R.layout.activity_display_test);
-
         initialize_views();
-
-
+        Log.d("After", "After initalizing the views");
         mBnext.setVisibility(View.VISIBLE);
         //TODO: set text for the
         statDamset.setText(R.string.statdam);

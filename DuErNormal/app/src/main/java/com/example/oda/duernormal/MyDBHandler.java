@@ -176,6 +176,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         int count = cursor.getInt(0);
         db.close();
         cursor.close();
+        Log.d("in","In find_nr_of_rows");
 
         return count;
     }

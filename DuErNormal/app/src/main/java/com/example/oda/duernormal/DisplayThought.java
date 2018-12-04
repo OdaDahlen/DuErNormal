@@ -69,7 +69,7 @@ public class DisplayThought extends AppCompatActivity {
     }
 
         public void initialize_views () {
-            sitat = findViewById(R.id.sitat);
+            sitat = findViewById(R.id.sitat_edit);
             statDamNr = findViewById(R.id.statistikkDamNr);
             statMennNr = findViewById(R.id.statistikkDamset);
             statDamset = findViewById(R.id.statistikkMennNr);
