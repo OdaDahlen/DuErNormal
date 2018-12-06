@@ -2,6 +2,7 @@ package com.example.oda.duernormal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.stats.WakeLock;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import android.widget.Adapter;
+import java.util.List;
 
 public class ViewDatabase extends AppCompatActivity {
     DatabaseReference mFiredatabase;
@@ -46,11 +53,15 @@ public class ViewDatabase extends AppCompatActivity {
     String text_set;
     Long stat_set;
     Iterator<DataSnapshot> it;
+    Iterator<StatThought> rev;
     Iterable<DataSnapshot> children;
-
+    String whereAt;
+    List<StatThought> mList=new ArrayList();
+    String mNext;
+    StatThought mNexts;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_kropp);
         initialize_views();
@@ -84,8 +95,21 @@ public class ViewDatabase extends AppCompatActivity {
                 children = dataInstance_DS.getChildren();
                 it = children.iterator();
 
+                sitat.setText(it.next().getValue(StatThought.class).getText());
+                //WakeLock
                 //Log.d();
 
+                mList.clear();
+                for(DataSnapshot children: dataSnapshot.getChildren()){
+                    StatThought statThought=children.getValue(StatThought.class);
+                    mList.add(statThought);
+                }
+                Collections.reverse(mList);
+
+                rev = mList.iterator();
+                Log.d("reversed", rev.next().getText());
+                Log.d("reversed", rev.next().getText());
+                //Adapter.notifyDataSetChanged();
                 //map2 = dataSnapshot.child("tKropp2");
                 //tKropp22 = map2.getValue(StatThought.class);
                 //Log.d("t1", tKropp22.getStat().toString());
@@ -131,6 +155,10 @@ public class ViewDatabase extends AppCompatActivity {
                     it = children.iterator();
                 }
                 StatThought child = it.next().getValue(StatThought.class);
+                //it.
+
+                Log.d("childID is now", child.getThoughtID().toString());
+                Log.d("children is now", dataInstance_DS.getKey());
                 //String a = "hey";
                 //sitat.setText("hey");
                 //CharSequence text_set = child.getText();
@@ -143,6 +171,16 @@ public class ViewDatabase extends AppCompatActivity {
 
             }
         });
+
+
+        /*
+        onCLick
+        check which ID
+        reverse order of thing
+        database.next()
+         */
+
+
 
 
     }
