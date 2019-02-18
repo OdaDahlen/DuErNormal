@@ -2,16 +2,17 @@ package com.example.oda.duernormal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PowerManager;
+//import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
-import com.google.android.gms.stats.WakeLock;
+//import com.google.android.gms.stats.WakeLock;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,17 +22,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
-import java.util.Map;
+import java.util.ListIterator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import android.widget.Adapter;
+//import java.util.Collections;
+//import android.widget.Adapter;
 import java.util.List;
 
 public class ViewDatabase extends AppCompatActivity {
+    //
     DatabaseReference mFiredatabase;
     ValueEventListener vel;
     Button mBnext;
+    ImageButton forwButton;
+    ImageButton backButton;
     TextView sitat;
     TextView sitatTest;
     TextView statDamNr;
@@ -40,6 +44,7 @@ public class ViewDatabase extends AppCompatActivity {
     TextView statMennset;
     int mSitat;
     int mIndex = 1;
+    int listIndex;
     int rowNr = 0;
     double mStatDam;
     double mStatMenn;
@@ -47,29 +52,25 @@ public class ViewDatabase extends AppCompatActivity {
     String maa;
     DataSnapshot map2;
     DataSnapshot dataInstance_DS;
-    DataSnapshot dataInstance_A;
-    StatThought tKropp22;
-    StatThought valueof;
-    String text_set;
-    Long stat_set;
     Iterator<DataSnapshot> it;
-    Iterator<StatThought> rev;
+    ListIterator<StatThought> theList;
     Iterable<DataSnapshot> children;
-    String whereAt;
     List<StatThought> mList=new ArrayList();
-    String mNext;
-    StatThought mNexts;
+    List<StatThought> mListB=new ArrayList();
+    String lastText;
+    Integer numberOfChildren;
+    Integer counter = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_kropp);
+        setContentView(R.layout.activity_display_clean);
         initialize_views();
-        mBnext.setVisibility(View.VISIBLE);
+        forwButton.setVisibility(View.VISIBLE);
+        backButton.setVisibility(View.VISIBLE);
         Intent intent = getIntent();
         final String category = intent.getExtras().getString("cat");
         Log.d("Cat in firebase is", category);
-       // mAuth = FirebaseAuth.getInstance();
 
         FirebaseApp.initializeApp(this);
 
@@ -80,52 +81,41 @@ public class ViewDatabase extends AppCompatActivity {
         //Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
 
         if (mFiredatabase == null){
-            Log.d("isnull", "Noooo");
+            Log.d("isnull", "Your database seems to be empty...");
         }
         vel = mFiredatabase.child("Thoughts").child("Category").child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("InOnDataChange", "on data change");
 
-
                 Log.d("Nr of children", Long.toString(dataSnapshot.getChildrenCount()));
-
+                numberOfChildren = (int) (long) dataSnapshot.getChildrenCount();
                 dataInstance_DS = dataSnapshot;
                 Log.d("datainst", dataInstance_DS.toString());
                 children = dataInstance_DS.getChildren();
-                it = children.iterator();
-
-                sitat.setText(it.next().getValue(StatThought.class).getText());
-                //WakeLock
-                //Log.d();
 
                 mList.clear();
+                //Integer index = 0;
                 for(DataSnapshot children: dataSnapshot.getChildren()){
                     StatThought statThought=children.getValue(StatThought.class);
                     mList.add(statThought);
+                    //mList.add(index, statThought);
+                    //index = index +1;
+                    //Log.d("index", index.toString());
                 }
-                Collections.reverse(mList);
+                //Log.d("index", index.toString());
+                mListB = mList;
 
-                rev = mList.iterator();
-                Log.d("reversed", rev.next().getText());
-                Log.d("reversed", rev.next().getText());
-                //Adapter.notifyDataSetChanged();
-                //map2 = dataSnapshot.child("tKropp2");
-                //tKropp22 = map2.getValue(StatThought.class);
-                //Log.d("t1", tKropp22.getStat().toString());
-                //Log.d("t2", tKropp22.getText());
+                //theList = mList.listIterator();
+                Integer lengthOfList = mListB.size();
 
-                //Object object = map.get("tKropp2");
+                Integer counter = 0;
 
-                //Log.d("trying mapping", "Value is: " + map);
-/*
-                for(Map.Entry<String, Object> entry: map.entrySet()) {
-                    System.out.println("mapping");
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
-                }
-*/
-                //Map<String, Object> map =(Map<String, Object>) dataSnapshot.getValue();
-
+                //sitat.setText(mListB.get(0).getText());
+                sitat.setText(R.string.kroppStart);
+                Log.d("length", lengthOfList.toString());
+                Log.d("text", mListB.get(0).getText());
+                //Collections.reverse(mList);
                 //mFiredatabase.child("Thoughts").removeEventListener(vel);
             }
 
@@ -135,10 +125,66 @@ public class ViewDatabase extends AppCompatActivity {
             }
         });
 
-        mBnext.setOnClickListener(new View.OnClickListener() {
+
+
+        forwButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Integer lengthOfList = mListB.size();
                 Log.d("clicked", "clicked");
+                Log.d("counter", counter.toString());
+                Log.d("lengthoflist", lengthOfList.toString());
+                if(counter < lengthOfList){
+                    Log.d("counter", counter.toString());
+                    Log.d( "name", mListB.get(counter).getText());
+                    sitat.setText(mListB.get(counter).getText());
+                    counter += 1;
+
+                }
+                if (counter == lengthOfList) {
+                    counter = 0;
+                    //sitat.setText(mListB.get(counter).getText());
+                }
+
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer lengthOfList = mListB.size();
+                Log.d("back", "back is clicked");
+
+
+                if(counter <= lengthOfList && counter > 0){
+                    Log.d("counter", counter.toString());
+                    Log.d( "name", mListB.get(counter).getText());
+                    sitat.setText(mListB.get(counter).getText());
+                    counter -= 1;
+                    Log.d("counterback", counter.toString());
+
+                }
+
+                if (counter == 0) {
+                    counter = lengthOfList;
+                    //sitat.setText(mListB.get(counter).getText());
+                }
+
+            }
+        });
+
+                /*if(!theList.hasNext()) {
+                    // If we reach the end of the list, we start from the beginning of the list.
+                    Log.d("endoflist", "End of list, starting it again.");
+                    theList = mList.listIterator();
+                    listIndex = 1;
+                }
+
+                // The last text will be an item of the list
+                lastText = theList.next().getText();
+                sitat.setText(lastText);
+                listIndex = +1;
+
 
                 /* String listenTo = "tKropp";
                 listenTo = listenTo + "2";
@@ -150,6 +196,8 @@ public class ViewDatabase extends AppCompatActivity {
                 Log.d("valueof", valueof.getText());
                 */
 
+
+                /*
                 if(!it.hasNext()) {
                     children = dataInstance_DS.getChildren();
                     it = children.iterator();
@@ -164,16 +212,61 @@ public class ViewDatabase extends AppCompatActivity {
                 //CharSequence text_set = child.getText();
                 Log.d("valueof", child.getStat().toString());
                 Log.d("valueof", child.getText());
-                sitat.setText(child.getText());
-                statDamNr.setText(child.getStat().toString());
-                statMennNr.setText(child.getStat().toString()); //This is now
+                lastText = child.getText();
+                sitat.setText(lastText);
+                //statDamNr.setText(child.getStat().toString());
+                //statMennNr.setText(child.getStat().toString()); //This is now
                 //Log.d("valueof", text_set);
+                */
 
+
+                /*
+                Log.d("back","back clicked");
+                if(!rev.hasNext()) {
+                    children = dataInstance_DS.getChildren();
+                    rev = mList.iterator();
+                }
+                */
+                /*
+                int i;
+                String newText;
+                children = dataInstance_DS.getChildren();
+                rev = mList.iterator();
+                for(i=1; i<numberOfChildren; i++){
+                    newText = rev.next().getText();
+                    if (lastText == newText){
+                        sitat.setText(rev.next().getText());
+                    }
+                }
+                sitat.setText(rev.next().getText());
+*/
+
+               /* if(!theList.hasPrevious()) {
+                    mList.
+
+                    Log.d("back2","List does not have previous:");
+                    Integer indx = theList.nextIndex();
+                    Log.d("indx", indx);
+                    //somehow me must go to end here!! this will obviously not work as we are trying to go backwards on a list from the start.....
+                    // omg Oda...
+                    lastText = theList.[indx-1].
+                    lastText = theList..getText();
+                    //Log.d("backtext", lastText);
+                }
+                lastText = theList.previous().getText();
+                sitat.setText(lastText);
+                Log.d("Text2", lastText);
+                //String m;
+                //for(m in mList){
+                //    if(rev.next().getText() == lastText){
+
+
+                    //}
+                //}
             }
-        });
+        });   /*
 
 
-        /*
         onCLick
         check which ID
         reverse order of thing
@@ -182,14 +275,20 @@ public class ViewDatabase extends AppCompatActivity {
 
 
 
-
     }
     public void initialize_views () {
         sitat = findViewById(R.id.sitat);
-        statDamNr = findViewById(R.id.statistikkDamNr);
-        statMennNr = findViewById(R.id.statistikkMennNr);
-        statDamset = findViewById(R.id.statistikkDamset);
-        statMennset = findViewById(R.id.statistikkMennset);
-        mBnext = findViewById(R.id.mBnext_kropp);
+        backButton = findViewById(R.id.backwButton);
+        forwButton = findViewById(R.id.forwButton);
+
+
+        //statDamNr = findViewById(R.id.statistikkDamNr);
+        //statMennNr = findViewById(R.id.statistikkMennNr);
+        //statDamset = findViewById(R.id.statistikkDamset);
+        //statMennset = findViewById(R.id.statistikkMennset);
+        //mBnext = findViewById(R.id.mBnext_kropp);
+
+
+
     }
 }

@@ -17,7 +17,7 @@
     <!-- Facts to display on front page -->
     <string name="selvmord_menn">Selvmordsraten hos menn er x pst høyere hos menn enn hos kvinner. Dette fordi </string>
     <string name="start_beskjed">Du tenker omtrent 80,000 tanker om dagen. En stor andel av disse tankene er bekymringer og negative tanker om deg selv. Negative tanker får oss i dårlig humør, de øker stress</string>
-
+    <string name="kroppStart">6 av 10 kvinner er misfornøyde med kroppen sin, i følge en britisk undersøkelse foretatt på 2000 kvinner</string>
 
     <!-- Svaralternativer -->
     <string name="svar1">Tenker det flere ganger i uken</string>
